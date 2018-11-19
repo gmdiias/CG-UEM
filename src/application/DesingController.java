@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.Objetos.Linha;
+import application.Objetos.ObjetoGrafico;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -15,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Line;
 
 public class DesingController implements Serializable {
 	
@@ -23,6 +26,8 @@ public class DesingController implements Serializable {
 	private List<MousePosition> mousePositions = new ArrayList<>();
 	
 	private int desenhoSelected;
+	
+	private ObjetoGrafico objeto;
 
 	@FXML
 	private AnchorPane janela;
@@ -58,7 +63,7 @@ public class DesingController implements Serializable {
 	private TextField messageText;
 	
 	@FXML
-	private ComboBox box;
+	private ComboBox<ObjetoGrafico> box;
 
 	@FXML
     public void initialize() {
@@ -68,12 +73,14 @@ public class DesingController implements Serializable {
 	@FXML
 	private void onClearSelect() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		box.getItems().clear();
 	}
 
 	@FXML
 	private void onLinhaSelect() {
 		desenhoSelected = 1;
 		mousePositions.clear();
+		objeto = new Linha();
 		showMessageText("Selecione dois pontos");
 	}
 	
@@ -103,7 +110,6 @@ public class DesingController implements Serializable {
 	
 	@FXML
 	private void onCanvasClick(MouseEvent mouseEvent) {
-		// TODO metodo linha
 		System.out.println("Posicao X: " + mouseEvent.getX() + " Y: " + mouseEvent.getY());
 		MousePosition newPosition = new MousePosition(mouseEvent.getX(), mouseEvent.getY());
 		desenhaSelecionado(newPosition);
@@ -112,14 +118,12 @@ public class DesingController implements Serializable {
 	private void desenhaSelecionado(MousePosition position) {
 		switch (desenhoSelected) {
 		case 1:
-			if(mousePositions.size() == 1) {
-				gc.strokeLine(mousePositions.get(0).getX(), mousePositions.get(0).getY(), position.getX(), position.getY());
-				mousePositions.clear();
-				box.getItems().add(mousePositions);
+			objeto.adicionaPonto(position.getX(), position.getY());
+			if(objeto.desenharObjeto(gc)) {
+				box.getItems().add(objeto);
+				objeto = new Linha();
 			}
-			else {
-				mousePositions.add(position);
-			}
+				
 			break;
 			
 		case 2:
@@ -132,7 +136,7 @@ public class DesingController implements Serializable {
 			
 		case 4:
 			if(mousePositions.size() == 1) {
-				gc.strokeOval(mousePositions.get(0).getX(), mousePositions.get(0).getY(), position.getX(), position.getY());
+				gc.strokeOval(mousePositions.get(0).getX(), mousePositions.get(0).getY(), 40, 40);
 				mousePositions.clear();
 			}
 			else {

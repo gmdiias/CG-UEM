@@ -15,13 +15,27 @@ public class MousePosition {
 	public double getX() {
 		return x;
 	}
+	
 	public void setX(double x) {
 		this.x = x;
 	}
+	
 	public double getY() {
 		return y;
 	}
+	
 	public void setY(double y) {
 		this.y = y;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder retorno = new StringBuilder();
+		retorno.append("pX = ");
+		retorno.append(x);
+		retorno.append(" pY = ");
+		retorno.append(y);
+		return retorno.toString();
+	}
+	
 }
