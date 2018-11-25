@@ -2,7 +2,7 @@ package application.Objetos;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public class Quadrado extends ObjetoGrafico {
+public class Circulo extends ObjetoGrafico {
 
 	@Override
 	public boolean validarObjeto() {
@@ -17,7 +17,7 @@ public class Quadrado extends ObjetoGrafico {
 		if(!validarObjeto())
 			return false;
 		
-double posX, posY, escalaX, escalaY;
+		double posX, posY, escalaX, escalaY;
 		
 		if(this.getPontos().get(1).getX() < this.getPontos().get(0).getX()) {
 			posX = this.getPontos().get(1).getX();
@@ -37,7 +37,7 @@ double posX, posY, escalaX, escalaY;
 			escalaY = this.getPontos().get(1).getY() - this.getPontos().get(0).getY();
 		}
 		
-		gc.strokeRect(posX, posY, escalaX, escalaY);
+		gc.strokeOval(posX, posY, escalaX, escalaY);
 		return true;
 	}
 

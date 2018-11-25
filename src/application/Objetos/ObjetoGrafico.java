@@ -50,9 +50,8 @@ public abstract class ObjetoGrafico {
 	@Override
 	public String toString() {
 		StringBuilder retorno = new StringBuilder();
-		retorno.append(id);
+		retorno.append(this.getClass().getSimpleName());
 		retorno.append(" - ");
-		retorno.append(nome);
 		pontos.forEach(ponto -> {
 			retorno.append(ponto.toString());
 			retorno.append(",");
