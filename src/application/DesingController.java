@@ -4,24 +4,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import application.Objetos.Circulo;
 import application.Objetos.Linha;
 import application.Objetos.ObjetoGrafico;
 import application.Objetos.Quadrado;
 import application.Objetos.Triangulo;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 
 public class DesingController implements Serializable {
 	
@@ -68,7 +67,7 @@ public class DesingController implements Serializable {
 	
 	@FXML
 	private ComboBox<ObjetoGrafico> box;
-
+	
 	@FXML
     public void initialize() {
         gc = canvas.getGraphicsContext2D();
@@ -87,30 +86,70 @@ public class DesingController implements Serializable {
 		if(box.getSelectionModel().getSelectedItem() == null) {
 			return;
 		}
-		
+
 		objeto = box.getSelectionModel().getSelectedItem();
 		gc.setStroke(Color.RED);
 		objeto.desenharObjeto(gc);
 		gc.setStroke(Color.BLACK);
+		// gc.scale(0.5, 0.5);
 	}
 	
 	@FXML
 	private void onMudancaEscalaSelect() {
+		String[] pontoReceived = obtemPosicoes("Mudança de Escala");
+		double transladaX = Double.parseDouble(pontoReceived[0]);
+		double transladaY = Double.parseDouble(pontoReceived[1]);
+		
+		String[] positionsReceived = obtemPosicoes("Mudança de Escala");
+		double deslocX = Double.parseDouble(positionsReceived[0]);
+		double deslocY = Double.parseDouble(positionsReceived[1]);
+		
 		objeto.getPontos().forEach(dado -> {
-			dado.setX(dado.getX()*2);
-			dado.setY(dado.getY()*2);
+			dado.setX(dado.getX() - transladaX);
+			dado.setY(dado.getY() - transladaY);
+			dado.setX(dado.getX() * deslocX);
+			dado.setY(dado.getY() * deslocY);
+			dado.setX(dado.getX() + transladaX);
+			dado.setY(dado.getY() + transladaY);
 		});
+		redesenha();
+	}
+	
+	@FXML
+	private void onRotacaoSelect() {
+		String[] pontoReceived = obtemPosicoes("Mudança de Escala");
+		double transladaX = Double.parseDouble(pontoReceived[0]);
+		double transladaY = Double.parseDouble(pontoReceived[1]);
+		
+		String[] grausReceived = obtemPosicoes("Mudança de Escala");
+		double graus = Double.parseDouble(grausReceived[0]);
+		
+        double angulo = Math.PI * graus / 180;
+        objeto.getPontos().forEach(dado -> {
+			dado.setX(dado.getX() - transladaX);
+			dado.setY(dado.getY() - transladaY);
+			dado.setX((Math.cos(angulo) * dado.getX()) + (-Math.sin(angulo) * dado.getY()) + (transladaY*Math.sin(angulo) - (transladaX*Math.cos(angulo)) + transladaX));
+			dado.setY((Math.sin(angulo) * dado.getX()) + (Math.cos(angulo) * dado.getY()) + (((-transladaX)*Math.sin(angulo)) - (transladaY*Math.cos(angulo)) +transladaY));
+			dado.setX(dado.getX() + transladaX);
+			dado.setY(dado.getY() + transladaY);
+		});
+		
 		redesenha();
 	}
 	
 	
 	@FXML
 	private void onTransacaoSelect() {
+		String[] positionsReceived = obtemPosicoes("Translação");
+		double deslocX = Double.parseDouble(positionsReceived[0]);
+		double deslocY = Double.parseDouble(positionsReceived[1]);
+		
 		objeto.getPontos().forEach(dado -> {
-			dado.setX(dado.getX()+20);
-			dado.setY(dado.getY()+20);
+			dado.setX(dado.getX() + deslocX);
+			dado.setY(dado.getY() + deslocY);
 		});
 		redesenha();
+		
 	}
 	
 	@FXML
@@ -153,7 +192,7 @@ public class DesingController implements Serializable {
 	
 	@FXML
 	private void onCanvasClick(MouseEvent mouseEvent) {
-		System.out.println("Posicao X: " + mouseEvent.getX() + " Y: " + mouseEvent.getY());
+		System.out.println("Clique detectado nas posições X: " + mouseEvent.getX() + " Y: " + mouseEvent.getY());
 		MousePosition newPosition = new MousePosition(mouseEvent.getX(), mouseEvent.getY());
 		desenhaSelecionado(newPosition);
 	}
@@ -208,4 +247,12 @@ public class DesingController implements Serializable {
 	private void showMessageText(String mensagem) {
 		messageText.setText(mensagem);
 	}
+	
+	private String[] obtemPosicoes(String msg) {
+		JFrame frame = new JFrame("Realizando transformação de " + msg);
+		String receivedPositions = JOptionPane.showInputDialog(frame, "Quanto deseja deslocar ??");
+
+		return receivedPositions.split(";");
+	}
+	
 }

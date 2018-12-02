@@ -31,9 +31,8 @@ public class MousePosition {
 	@Override
 	public String toString() {
 		StringBuilder retorno = new StringBuilder();
-		retorno.append("pX = ");
 		retorno.append(x);
-		retorno.append(" pY = ");
+		retorno.append(";");
 		retorno.append(y);
 		return retorno.toString();
 	}

@@ -51,10 +51,11 @@ public abstract class ObjetoGrafico {
 	public String toString() {
 		StringBuilder retorno = new StringBuilder();
 		retorno.append(this.getClass().getSimpleName());
-		retorno.append(" - ");
+		retorno.append(" - P: ");
 		pontos.forEach(ponto -> {
+			retorno.append("(");
 			retorno.append(ponto.toString());
-			retorno.append(",");
+			retorno.append(")");
 		});
 		return retorno.toString();
 	}
