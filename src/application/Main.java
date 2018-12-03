@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Desing.fxml"));
         
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 1000, 800);
         ((Pane)scene.getRoot()).setBackground(new Background(new BackgroundFill(Color.WHITE,
                 CornerRadii.EMPTY, Insets.EMPTY)));
         

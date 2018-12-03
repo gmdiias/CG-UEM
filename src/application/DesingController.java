@@ -128,8 +128,8 @@ public class DesingController implements Serializable {
         objeto.getPontos().forEach(dado -> {
 			dado.setX(dado.getX() - transladaX);
 			dado.setY(dado.getY() - transladaY);
-			dado.setX((Math.cos(angulo) * dado.getX()) + (-Math.sin(angulo) * dado.getY()) + (transladaY*Math.sin(angulo) - (transladaX*Math.cos(angulo)) + transladaX));
-			dado.setY((Math.sin(angulo) * dado.getX()) + (Math.cos(angulo) * dado.getY()) + (((-transladaX)*Math.sin(angulo)) - (transladaY*Math.cos(angulo)) +transladaY));
+			dado.setX((Math.cos(angulo) * dado.getX()) + (-Math.sin(angulo) * dado.getY()));
+			dado.setY((Math.sin(angulo) * dado.getX()) + (Math.cos(angulo) * dado.getY()));
 			dado.setX(dado.getX() + transladaX);
 			dado.setY(dado.getY() + transladaY);
 		});
@@ -195,6 +195,12 @@ public class DesingController implements Serializable {
 		System.out.println("Clique detectado nas posições X: " + mouseEvent.getX() + " Y: " + mouseEvent.getY());
 		MousePosition newPosition = new MousePosition(mouseEvent.getX(), mouseEvent.getY());
 		desenhaSelecionado(newPosition);
+	}
+	
+	@FXML
+	private void onZoomSelect() {
+		gc.scale(2, 2);
+		redesenha();
 	}
 	
 	private void redesenha() {

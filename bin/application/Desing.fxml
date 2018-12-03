@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="janela" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DesingController">
+<AnchorPane id="AnchorPane" fx:id="janela" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DesingController">
    <children>
       <Text layoutX="9.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESENHOS" wrappingWidth="78.24971199035645">
          <font>
@@ -53,13 +53,10 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <TextField editable="false" layoutX="648.0" layoutY="568.0" prefHeight="26.0" prefWidth="70.0" text="X: " fx:id="xPosition" />
-      <TextField fx:id="yPosition" editable="false" layoutX="725.0" layoutY="568.0" prefHeight="26.0" prefWidth="70.0" text="Y: " />
-      <TextField fx:id="messageText" editable="false" layoutX="7.0" layoutY="568.0" prefHeight="26.0" prefWidth="634.0" />
-      <Separator layoutX="3.0" layoutY="564.0" prefHeight="3.0" prefWidth="794.0" />
-      <Separator layoutX="85.0" layoutY="85.0" orientation="VERTICAL" prefHeight="478.0" prefWidth="0.0" />
-      <Separator layoutX="7.0" layoutY="83.0" prefHeight="3.0" prefWidth="788.0" />
-      <ImageView fx:id="clear" fitHeight="61.0" fitWidth="70.0" layoutX="91.0" layoutY="12.0" onMouseClicked="#onClearSelect" pickOnBounds="true" preserveRatio="true">
+      <TextField editable="false" layoutX="838.0" layoutY="759.0" prefHeight="26.0" prefWidth="70.0" text="X: " fx:id="xPosition" />
+      <TextField fx:id="yPosition" editable="false" layoutX="915.0" layoutY="759.0" prefHeight="26.0" prefWidth="70.0" text="Y: " />
+      <TextField fx:id="messageText" editable="false" layoutX="9.0" layoutY="759.0" prefHeight="26.0" prefWidth="822.0" />
+      <ImageView fx:id="clear" fitHeight="61.0" fitWidth="70.0" layoutX="196.0" layoutY="18.0" onMouseClicked="#onClearSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../IMAGENS/clear.png" />
          </image>
@@ -67,7 +64,7 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="rotacao" fitHeight="61.0" fitWidth="78.0" layoutX="174.0" layoutY="12.0" onMouseClicked="#onRotacaoSelect" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="rotacao" fitHeight="61.0" fitWidth="78.0" layoutX="283.0" layoutY="18.0" onMouseClicked="#onRotacaoSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../IMAGENS/rotacao.png" />
          </image>
@@ -75,7 +72,7 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="escala" fitHeight="61.0" fitWidth="68.0" layoutX="256.0" layoutY="12.0" onMouseClicked="#onMudancaEscalaSelect" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="escala" fitHeight="61.0" fitWidth="68.0" layoutX="372.0" layoutY="18.0" onMouseClicked="#onMudancaEscalaSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../IMAGENS/escala.png" />
          </image>
@@ -83,7 +80,7 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="translacao" fitHeight="61.0" fitWidth="70.0" layoutX="339.0" layoutY="12.0" onMouseClicked="#onTransacaoSelect" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="translacao" fitHeight="61.0" fitWidth="70.0" layoutX="462.0" layoutY="18.0" onMouseClicked="#onTransacaoSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../IMAGENS/transalacao.png" />
          </image>
@@ -91,7 +88,7 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="zoom" fitHeight="61.0" fitWidth="66.0" layoutX="420.0" layoutY="12.0" onMouseClicked="#onLinhaSelect" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="zoom" fitHeight="61.0" fitWidth="66.0" layoutX="546.0" layoutY="18.0" onMouseClicked="#onZoomSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../IMAGENS/zoom.png" />
          </image>
@@ -99,15 +96,23 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <ComboBox fx:id="box" layoutX="497.0" layoutY="29.0" onAction="#onSelectObject" prefHeight="26.0" prefWidth="287.0" />
-      <Pane layoutX="91.0" layoutY="89.0" prefHeight="477.0" prefWidth="706.0">
+      <ComboBox fx:id="box" layoutX="622.0" layoutY="35.0" onAction="#onSelectObject" prefHeight="26.0" prefWidth="352.0" promptText="Selecionar o objeto ..." />
+      <ImageView fx:id="linha1" fitHeight="49.0" fitWidth="68.0" layoutX="91.0" layoutY="85.0" onMouseClicked="#onLinhaSelect" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../CG/ComputacaoGrafica/IMAGENS/eixos.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor>
+      </ImageView>
+      <Pane layoutX="105.0" layoutY="99.0" prefHeight="642.0" prefWidth="886.0" style="-fx-border-color: 2;">
          <children>
-            <Canvas fx:id="canvas" height="477.0" onMouseClicked="#onCanvasClick" onMouseMoved="#canvasMousePosition" width="706.0">
+            <Canvas fx:id="canvas" height="642.0" onMouseClicked="#onCanvasClick" onMouseMoved="#canvasMousePosition" width="886.0">
                <cursor>
                   <Cursor fx:constant="CROSSHAIR" />
                </cursor>
             </Canvas>
-            <GridPane disable="true" gridLinesVisible="true" opacity="0.19" prefHeight="474.0" prefWidth="706.0">
+            <GridPane disable="true" gridLinesVisible="true" opacity="0.19" prefHeight="642.0" prefWidth="886.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -168,5 +173,18 @@
             </GridPane>
          </children>
       </Pane>
+      <Text layoutX="146.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" wrappingWidth="12.049715042114258">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="91.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Y" wrappingWidth="12.049715042114258">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Separator layoutX="5.0" layoutY="750.0" prefHeight="3.0" prefWidth="991.0" />
+      <Separator layoutX="-8.0" layoutY="83.0" prefHeight="3.0" prefWidth="1008.0" />
+      <Separator layoutX="84.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="751.0" prefWidth="6.0" />
    </children>
 </AnchorPane>
