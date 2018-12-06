@@ -2,6 +2,8 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -56,7 +58,7 @@
       <TextField editable="false" layoutX="838.0" layoutY="759.0" prefHeight="26.0" prefWidth="70.0" text="X: " fx:id="xPosition" />
       <TextField fx:id="yPosition" editable="false" layoutX="915.0" layoutY="759.0" prefHeight="26.0" prefWidth="70.0" text="Y: " />
       <TextField fx:id="messageText" editable="false" layoutX="9.0" layoutY="759.0" prefHeight="26.0" prefWidth="822.0" />
-      <ImageView fx:id="clear" fitHeight="61.0" fitWidth="70.0" layoutX="196.0" layoutY="18.0" onMouseClicked="#onClearSelect" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="clear" fitHeight="61.0" fitWidth="70.0" layoutX="182.0" layoutY="18.0" onMouseClicked="#onClearSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../IMAGENS/clear.png" />
          </image>
@@ -64,7 +66,7 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="rotacao" fitHeight="61.0" fitWidth="78.0" layoutX="283.0" layoutY="18.0" onMouseClicked="#onRotacaoSelect" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="rotacao" fitHeight="61.0" fitWidth="78.0" layoutX="273.0" layoutY="18.0" onMouseClicked="#onRotacaoSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../IMAGENS/rotacao.png" />
          </image>
@@ -72,7 +74,7 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="escala" fitHeight="61.0" fitWidth="68.0" layoutX="372.0" layoutY="18.0" onMouseClicked="#onMudancaEscalaSelect" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="escala" fitHeight="61.0" fitWidth="68.0" layoutX="359.0" layoutY="18.0" onMouseClicked="#onMudancaEscalaSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../IMAGENS/escala.png" />
          </image>
@@ -80,7 +82,7 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="translacao" fitHeight="61.0" fitWidth="70.0" layoutX="462.0" layoutY="18.0" onMouseClicked="#onTransacaoSelect" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="translacao" fitHeight="61.0" fitWidth="70.0" layoutX="447.0" layoutY="18.0" onMouseClicked="#onTransacaoSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../IMAGENS/transalacao.png" />
          </image>
@@ -88,7 +90,7 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="zoom" fitHeight="61.0" fitWidth="66.0" layoutX="546.0" layoutY="18.0" onMouseClicked="#onZoomSelect" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="zoom" fitHeight="61.0" fitWidth="66.0" layoutX="533.0" layoutY="18.0" onMouseClicked="#onZoomSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../IMAGENS/zoom.png" />
          </image>
@@ -96,7 +98,7 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </ImageView>
-      <ComboBox fx:id="box" layoutX="622.0" layoutY="35.0" onAction="#onSelectObject" prefHeight="26.0" prefWidth="352.0" promptText="Selecionar o objeto ..." />
+      <ComboBox fx:id="box" layoutX="622.0" layoutY="49.0" onAction="#onSelectObject" prefHeight="26.0" prefWidth="352.0" promptText="Selecionar o objeto ..." />
       <ImageView fx:id="linha1" fitHeight="49.0" fitWidth="68.0" layoutX="91.0" layoutY="85.0" onMouseClicked="#onLinhaSelect" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../CG/ComputacaoGrafica/IMAGENS/eixos.png" />
@@ -186,5 +188,7 @@
       <Separator layoutX="5.0" layoutY="750.0" prefHeight="3.0" prefWidth="991.0" />
       <Separator layoutX="-8.0" layoutY="83.0" prefHeight="3.0" prefWidth="1008.0" />
       <Separator layoutX="84.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="751.0" prefWidth="6.0" />
+      <CheckBox fx:id="allObjects" layoutX="622.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#onSelectAllObject" text="Selecionar todos os objetos" />
+      <Button layoutX="12.0" layoutY="36.0" mnemonicParsing="false" onMouseClicked="#onHelpSelected" text="Ajuda" />
    </children>
 </AnchorPane>
