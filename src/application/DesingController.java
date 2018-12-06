@@ -12,6 +12,7 @@ import application.Objetos.Linha;
 import application.Objetos.ObjetoGrafico;
 import application.Objetos.Quadrado;
 import application.Objetos.Triangulo;
+import commom.HelperString;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -98,12 +99,12 @@ public class DesingController implements Serializable {
 		objeto.desenharObjeto(gc);
 		gc.setStroke(Color.BLACK);
 	}
-	
+
 	@FXML
 	private void onSelectAllObject() {
 		desenhoSelected = 0;
-		
-		if(allObjects.isSelected()) {
+
+		if (allObjects.isSelected()) {
 			gc.setStroke(Color.RED);
 			redesenha();
 			gc.setStroke(Color.BLACK);
@@ -117,14 +118,23 @@ public class DesingController implements Serializable {
 
 	@FXML
 	private void onMudancaEscalaSelect() {
+		if(!verificaSelectedObject())
+			return;
+		
 		String[] pontoReceived = obtemPosicoes("Sobre qual posição deseja realizar a mudança de escala ??"
 				+ System.lineSeparator() + " Ex: 0;0 para realizar sobre a posição inicial.");
+		if(!validaEntradaDados(2, pontoReceived))
+			return;
+		
 		double transladaX = Double.parseDouble(pontoReceived[0]);
 		double transladaY = Double.parseDouble(pontoReceived[1]);
 
 		String[] positionsReceived = obtemPosicoes(
 				"Qual o valor de x e y que deseja aplicar a transformação de mudança de escala ??"
 						+ System.lineSeparator() + " Ex: 2;2 para dobrar o tamanho do objeto");
+		if(!validaEntradaDados(2, positionsReceived))
+			return;
+
 		double deslocX = Double.parseDouble(positionsReceived[0]);
 		double deslocY = Double.parseDouble(positionsReceived[1]);
 
@@ -156,13 +166,24 @@ public class DesingController implements Serializable {
 
 	@FXML
 	private void onRotacaoSelect() {
+		if(!verificaSelectedObject())
+			return;
+		
 		String[] pontoReceived = obtemPosicoes("Sobre qual posição deseja realizar a mudança de rotação ??"
 				+ System.lineSeparator() + " Ex: 0;0 para realizar sobre a posição inicial.");
+		
+		if(!validaEntradaDados(2, pontoReceived))
+			return;
+		
 		double transladaX = Double.parseDouble(pontoReceived[0]);
 		double transladaY = Double.parseDouble(pontoReceived[1]);
 
 		String[] grausReceived = obtemPosicoes(
 				"Qual o angulo de rotacao desejado ??" + System.lineSeparator() + " Ex: 20 para rotacionar 20 graus.");
+		
+		if(!validaEntradaDados(1, grausReceived))
+			return;
+		
 		double graus = Double.parseDouble(grausReceived[0]);
 
 		double angulo = Math.PI * graus / 180;
@@ -194,9 +215,16 @@ public class DesingController implements Serializable {
 
 	@FXML
 	private void onTransacaoSelect() {
+		if(!verificaSelectedObject())
+			return;
+		
 		String[] positionsReceived = obtemPosicoes(
 				"Qual o valor de x e y que deseja aplicar a transformação de translação ??" + System.lineSeparator()
 						+ " Ex: 50;20 para deslocar o objeto 50 posições em x e 20 em y;");
+		
+		if(!validaEntradaDados(2, positionsReceived))
+			return;
+		
 		double deslocX = Double.parseDouble(positionsReceived[0]);
 		double deslocY = Double.parseDouble(positionsReceived[1]);
 
@@ -265,42 +293,20 @@ public class DesingController implements Serializable {
 
 	@FXML
 	private void onZoomSelect() {
-		String[] positionsReceived = obtemPosicoes("Sobre qual valor deseja aplicar o zoom ??" + System.lineSeparator()
-				+ " Ex: 2 para dobrar o zoom ou 0.5 para diminuir o dobro");
+		String[] positionsReceived = obtemPosicoes("Informe os valores desejados para zoom ??" + System.lineSeparator()
+				+ " Ex: 2 para dar zoom 2x (1 para voltar ao normal)");
 		double scala = Double.parseDouble(positionsReceived[0]);
+
+		gc.scale(1 / valorZoom, 1 / valorZoom);
 		gc.scale(scala, scala);
 		valorZoom = scala;
 		redesenha();
 	}
-	
+
 	@FXML
 	private void onHelpSelected() {
-		StringBuilder helpString = new StringBuilder();
-		helpString.append("Olá, vimos que você está precisando de ajuda, então vamos lá ...");
-		helpString.append(System.lineSeparator());
-		helpString.append(System.lineSeparator());
-		helpString.append("* Como desenhar objetos ??");
-		helpString.append(System.lineSeparator());
-		helpString.append("Para desenhar objetos é preciso selecionar a forma do objeto que deseja desenhar e selecionar no canvas a quantidade de     ");
-		helpString.append(System.lineSeparator());
-		helpString.append("pontos necessárias para desenha-lo, para saber a quantidade basta selecionar o objeto e sistema irá lhe avisar no console.");
-		helpString.append(System.lineSeparator());
-		helpString.append(System.lineSeparator());
-		helpString.append("* Como aplicar transformações ??");
-		helpString.append(System.lineSeparator());
-		helpString.append("Para aplicar as transformações é necessário selecionar os objetos, escolher a transformação desejada e informar os pontos sobre");
-		helpString.append(System.lineSeparator());
-		helpString.append("que deseja realizar as transformações.");
-		helpString.append(System.lineSeparator());
-		helpString.append(System.lineSeparator());
-		helpString.append("* Como selecionar objetos ??");
-		helpString.append(System.lineSeparator());
-		helpString.append("Para selecionar objetos é necessário escolher o objeto através da lista disponivel no ponto superior direito, abrindo a lista e");
-		helpString.append(System.lineSeparator());
-		helpString.append("escolhendo o objeto desejado, caso deseja selecionar todos os objetos é necessário marcar a seleção \"Selecionar todos objetos\". ");
-		
 		JFrame frame = new JFrame("Ajuda");
-		JOptionPane.showMessageDialog(frame, helpString.toString(), "Ajuda", 1);
+		JOptionPane.showMessageDialog(frame, HelperString.getStringHelper(), "Ajuda", 1);
 	}
 
 	private void redesenha() {
@@ -352,12 +358,31 @@ public class DesingController implements Serializable {
 	private void showMessageText(String mensagem) {
 		messageText.setText(mensagem);
 	}
-	
+
 	private String[] obtemPosicoes(String msg) {
 		JFrame frame = new JFrame("Realizando transformação");
 		String receivedPositions = JOptionPane.showInputDialog(frame, msg);
 
 		return receivedPositions.split(";");
+	}
+	
+	private boolean verificaSelectedObject() {
+		if(box.getSelectionModel().getSelectedItem() == null && !allObjects.isSelected()) {
+			JFrame frame = new JFrame("Nenhum objeto selecionado");
+			JOptionPane.showMessageDialog(frame, "Não foi selecionado nenhum objeto para realizar a transformação!" + 
+			System.lineSeparator() + "Selecione um objeto e tente novamente.", "Nenhum objeto selecionado", 1);
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean validaEntradaDados(int esperado, String[] obtido) {
+		if(obtido.length < esperado) {
+			JFrame frame = new JFrame("Entrada inválida");
+			JOptionPane.showMessageDialog(frame, "Formato dos dados informados inválidos.", "Entrada inválida", 1);
+			return false;
+		}
+		return true;
 	}
 
 }
